@@ -10,10 +10,8 @@ Exercises
 """
 
 from turtle import *
-from turtle import circle as draw_circle
-
 from freegames import vector
-
+from turtle import circle as draw_circle
 
 def line(start, end):
     """Draw line from start to end."""
@@ -51,25 +49,46 @@ def circle(start, end):
 
 def rectangle(start, end):
     """Draw rectangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
 
+    width = end.x - start.x
+    height = end.y - start.y
+
+    for count in range(2):
+        forward(width)
+        left(90)
+        forward(height)
+        left(90)
+
+    end_fill()
 
 def triangle(start, end):
     """Draw triangle from start to end."""
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
 
+    goto(end.x, end.y)
+    goto(start.x - (end.x - start.x), end.y)
+    goto(start.x, start.y)
+
+    end_fill()
 
 def tap(x, y):
     """Store starting point or draw shape."""
-    start = state["start"]
+    start = state['start']
 
     if start is None:
-        state["start"] = vector(x, y)
+        state['start'] = vector(x, y)
     else:
-        shape = state["shape"]
+        shape = state['shape']
         end = vector(x, y)
         shape(start, end)
-        state["start"] = None
+        state['start'] = None
 
 
 def store(key, value):
@@ -77,7 +96,7 @@ def store(key, value):
     state[key] = value
 
 
-state = {"start": None, "shape": line}
+state = {'start': None, 'shape': line}
 setup(420, 420, 370, 0)
 onscreenclick(tap)
 listen()
